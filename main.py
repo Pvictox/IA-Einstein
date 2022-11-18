@@ -2,8 +2,9 @@ import alelo
 import populacao
 from cromossomo import Cromossomo
 import fitness
-# popCromossomos = populacao.criarPopulacao(1)
-
+popCromossomos = populacao.criarPopulacao(1)
+fitness.calcularFitness(cromossomo=popCromossomos[0])
+print(popCromossomos[0].getPontos())
 # for cromossomo in popCromossomos:
 #     print(cromossomo.getGenotipo())
 #     print(cromossomo.getFenotipo())

@@ -39,6 +39,12 @@ class Cromossomo:
     
     def getPet(self):
         return self.pet
+    
+    def getBebida(self):
+        return self.bebida
+    
+    def getCigarro(self):
+        return self.cigarro
         
     def getFenotipo(self):
         #Nacionalidade
