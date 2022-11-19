@@ -1,6 +1,7 @@
 from cromossomo import Cromossomo
 import random
 import numpy.random as npr
+import fitness
 
 def mutacao(cromossomo):
     #Pegar primeiro uma casa aleatória
@@ -69,5 +70,68 @@ def roletaCromossomo(population):
 
     return population[npr.choice(len(population), p=selection_probs)], selection_probs
 
+
+
+
+def retornaUltimosAlelos(aleloFilho, listaPai):
+    values = listaPai[3:]
+    for value in values:
+        aleloFilho.append(value)
+    return aleloFilho
+
+def retornaPrimeirosAlelos(aleloFilho, listaMae):
+    values = listaMae[:3]
+    for value in values:
+        aleloFilho.append(value) 
+    return aleloFilho
+
+
+#Pegar bebida e Cigarro do pai 
+# Nacionalidade, pet, cor da mãe
+
+# depois para ou outro filho fazer o inverso
+def crossover(cromossomoPai, cromossomoMae):
+    aleloFilhoCigarro = []
+    aleloFilhoBebida = []
+    aleloFilhoCor = []
+    aleloFilhoPet = []
+    aleloFilhoNacionalidade= []
+    
+
+
+    aleloFilhoBebida = cromossomoPai.getBebida()
+    aleloFilhoCigarro = cromossomoPai.getCigarro()
+    aleloFilhoCor = cromossomoMae.getCor()
+    aleloFilhoNacionalidade = cromossomoMae.getNacionalidade()
+    aleloFilhoPet = cromossomoMae.getPet()
+    
+
+    primeiroFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
+
+    aleloFilhoCigarro = []
+    aleloFilhoBebida = []
+    aleloFilhoCor = []
+    aleloFilhoPet = []
+    aleloFilhoNacionalidade= []
+
+    aleloFilhoBebida = cromossomoMae.getBebida()
+    aleloFilhoCigarro = cromossomoMae.getCigarro()
+    aleloFilhoCor = cromossomoPai.getCor()
+    aleloFilhoNacionalidade = cromossomoPai.getNacionalidade()
+    aleloFilhoPet = cromossomoPai.getPet()
+    segundoFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
+
+    print("MAE: "+cromossomoMae.getGenotipo())
+    print("PAI: "+cromossomoPai.getGenotipo())
+    # print("FITNESS PAI: ", cromossomoPai.getPontos())
+    # print("FITNESS MAE: ", cromossomoMae.getPontos())
+    
+    print("FILHO QUE FOI GERADO: "+primeiroFilho.getGenotipo())
+    fitness.calcularFitness(primeiroFilho)
+    print("FITNESS primeiro Filho: ", primeiroFilho.getPontos())
+
+    print("FILHO QUE FOI  segundo GERADO: "+segundoFilho.getGenotipo())
+    fitness.calcularFitness(segundoFilho)
+    print("FITNESS segund Filho: ", segundoFilho.getPontos())
 
 
