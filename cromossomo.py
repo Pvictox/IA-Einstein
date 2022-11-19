@@ -21,7 +21,7 @@ class Cromossomo:
     
 
     def getGenotipo(self):
-        return "Nacionalidade: "+self.nacionalidade+" | Pet: "+self.pet+" | Cor = "+self.corCasa+" | Bebida = "+self.bebida+" | Cigarro = "+self.cigarro
+        return "Nacionalidade: "+str(self.nacionalidade)+" | Pet: "+str(self.pet)+" | Cor = "+str(self.corCasa)+" | Bebida = "+str(self.bebida)+" | Cigarro = "+str(self.cigarro)
 
 
     
