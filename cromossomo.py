@@ -17,14 +17,21 @@ class Cromossomo:
         self.bebida = bebida
         self.cigarro = cigarro
         self.pontos = 0
-
+        
     
+
+
 
     def getGenotipo(self):
         return "Nacionalidade: "+str(self.nacionalidade)+" | Pet: "+str(self.pet)+" | Cor = "+str(self.corCasa)+" | Bebida = "+str(self.bebida)+" | Cigarro = "+str(self.cigarro)
 
 
-    
+    def removeConsolacao(self, valor):
+        self.pontos = valor
+
+    def addConsolacao(self):
+        self.pontos +=0.5
+
     def addPonto(self):
         self.pontos+=1
     

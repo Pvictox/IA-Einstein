@@ -6,7 +6,7 @@ import operacoes
 
 
 
-popCromossomos = populacao.criarPopulacao(5)
+popCromossomos = populacao.criarPopulacao(4)
 for c in popCromossomos:
     fitness.calcularFitness(c)
 
@@ -15,12 +15,22 @@ for c in popCromossomos:
 
 
 #Lógica da roleta -> Quando eu selecionar o pai eu removo ele da população para evitar que ele seja selecionado novamente. Depois do processo de escolha eu adiciono ele na pop dnovo
-cPai = operacoes.roletaCromossomo(population=popCromossomos)
+cPai,probs = operacoes.roletaCromossomo(population=popCromossomos)
+print(probs)
 popCromossomos.remove(cPai)
-cMae = operacoes.roletaCromossomo(population=popCromossomos)
+cMae,probs = operacoes.roletaCromossomo(population=popCromossomos)
+print(probs)
+
+popCromossomos.append(cPai)
 
 print("Gen: "+str(cPai.getGenotipo())+"|| Pontos: "+str(cPai.getPontos()))
 print("Gen: "+str(cMae.getGenotipo())+"|| Pontos "+str(cMae.getPontos()))
+
+
+print(" ============================== ")
+for c in popCromossomos:
+    print("Index: "+str(popCromossomos.index(c))+" | Pontos: "+str(c.getPontos())+" | Aptidao: "+str(c.getAptidao()))
+
 #operacoes.mutacao(popCromossomos[0])
 # fitness.calcularFitness(cromossomo=popCromossomos[0])
 # print(popCromossomos[0].getPontos())
