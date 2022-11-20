@@ -56,28 +56,20 @@ def swapSucessor(lista, posicao):
 
 
 
-def weighted_random_choice(chromosomes):
-    max = sum(chromosome.getPontos() for chromosome in chromosomes)
-    pick = random.uniform(0, max)
-    current = 0
-    for chromosome in chromosomes:
-        current += chromosome.getPontos()
-        if current > pick:
-            return chromosome
-
 
 def roletaCromossomo(population):
     for c in population:
         if (c.getPontos() == 0):
-            c.addConsolacao()
-            
+            c.addConsolacao()       
     max = sum([c.getPontos()for c in population])
     selection_probs = [c.getPontos()/max for c in population]
     for c in population:
         if (c.getPontos() == 0.5):
             c.removeConsolacao(0)
-    
-    return population[npr.choice(len(population), p=selection_probs)], selection_probs
+        
+    pai_Selecionado = population[npr.choice(len(population), p=selection_probs)]
+     
+    return pai_Selecionado, selection_probs
 
 
 
