@@ -9,8 +9,8 @@ TAXA_CROSSOVER = 90
 TAXA_MUTACAO = 1
 TAXA_IMIGRACAO = 3
 TAXA_SOBREVIVENCIA = 6
-TAM_POP = 100
-NUM_GEN = 1
+TAM_POP = 6
+NUM_GEN = 100
 
 prox_pop = []
 
@@ -24,23 +24,22 @@ while (geracao < NUM_GEN):
      geracao+=1
 
      #Crossover Metodo
-     numFilhos = (TAM_POP*TAXA_CROSSOVER)//100
+     numFilhos = (TAM_POP*TAXA_CROSSOVER)/100
      i =0
 
-
-     while(i < numFilhos//2):
-          
+     prox_pop = []
+     while(i < numFilhos/2):
+     
           pai, probs = operacoes.roletaCromossomo(population=pop)
           pop.remove(pai)
           mae, probs = operacoes.roletaCromossomo(population=pop)
-          pop.append(pai)
+          pop.remove(mae)
           filho1, filho2 = operacoes.crossover(cromossomoPai=pai, cromossomoMae=mae)
           prox_pop.append(filho1)
-          if (i != numFilhos-1):
-               prox_pop.append(filho2)
+          prox_pop.append(filho2)
           i+=1
-
-     #Mutacao
+     
+     
      numMutados = (TAM_POP*TAXA_MUTACAO)/100
      i=0
      while (i < numMutados):
@@ -58,13 +57,26 @@ while (geracao < NUM_GEN):
                print("Fenótipo: ", cromossomo_avaliado.getFenotipo())
                exit()
      
+   
      #Sobrevivência
      #....
 
 
      #Imigração
      #...
+
+     pop = prox_pop
      
 
-     
+print(" ============= SAIU DAS OPERAÇOS ============= ")
+for c in pop:
+       #print("Index: "+str(pop.index(c))+" | Pontos: "+ str(c.getPontos()))
+       print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo()))
+
+pop.sort(key=lambda x:x.getPontos(), reverse=True)
+
+print("============ Ordenou ============== ")
+for c in pop:
+       print("Index: "+str(pop.index(c))+" | Pontos: "+ str(c.getPontos()))
+
 #print(len(prox_pop))

@@ -2,7 +2,7 @@ from cromossomo import Cromossomo
 import random
 import numpy.random as npr
 import fitness
-
+import numpy as np
 def mutacao(cromossomo):
     #Pegar primeiro uma casa aleatória
     numero_casa = random.randint(0,4)
@@ -55,17 +55,28 @@ def swapSucessor(lista, posicao):
     lista[posicao] = aux 
 
 
+
+def weighted_random_choice(chromosomes):
+    max = sum(chromosome.getPontos() for chromosome in chromosomes)
+    pick = random.uniform(0, max)
+    current = 0
+    for chromosome in chromosomes:
+        current += chromosome.getPontos()
+        if current > pick:
+            return chromosome
+
+
 def roletaCromossomo(population):
     for c in population:
         if (c.getPontos() == 0):
             c.addConsolacao()
             
-    max = sum([c.getPontos() for c in population])
+    max = sum([c.getPontos()for c in population])
     selection_probs = [c.getPontos()/max for c in population]
     for c in population:
         if (c.getPontos() == 0.5):
             c.removeConsolacao(0)
-
+    
     return population[npr.choice(len(population), p=selection_probs)], selection_probs
 
 
