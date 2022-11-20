@@ -152,3 +152,8 @@ def calcularFitness(cromossomo):
             else:
                 if (enumBebida(cromossomo.getBebida()[indexDaCasa+1]).name == "AGUA" or enumBebida(cromossomo.getBebida()[indexDaCasa-1]).name == "AGUA"):
                     cromossomo.addPonto()  
+
+    if (cromossomo.getPontos() == 15):
+        return cromossomo
+    else:
+        return None

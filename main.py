@@ -17,7 +17,7 @@ prox_pop = []
 geracao = 0
 pop = populacao.criarPopulacao(TAM_POP)
 for cromossomo in pop:
-     fitness.calcularFitness(cromossomo= cromossomo)
+     cromossomo = fitness.calcularFitness(cromossomo= cromossomo)
 
 
 while (geracao < NUM_GEN):
@@ -50,7 +50,13 @@ while (geracao < NUM_GEN):
      
      #Avaliação
      for cromossomo in prox_pop:
-          fitness.calcularFitness(cromossomo=cromossomo)
+          cromossomo_avaliado = fitness.calcularFitness(cromossomo=cromossomo)
+          if (cromossomo_avaliado != None):
+               print("***** RESPOSTA ENCONTRADA *****")
+               print("Geração: ", geracao)
+               print("Genótipo: ", cromossomo_avaliado.getGenotipo())
+               print("Fenótipo: ", cromossomo_avaliado.getFenotipo())
+               exit()
      
      #Sobrevivência
      #....
