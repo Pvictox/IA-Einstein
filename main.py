@@ -8,7 +8,7 @@ import random
 TAXA_CROSSOVER = 90
 TAXA_MUTACAO = 1
 TAXA_IMIGRACAO = 3
-TAXA_SOBREVIVENCIA = 6
+TAXA_SOBREVIVENCIA = 9
 TAM_POP = 100
 NUM_GEN = 100
 
@@ -74,6 +74,7 @@ while (geracao < NUM_GEN):
 #        #print("Index: "+str(pop.index(c))+" | Pontos: "+ str(c.getPontos()))
 #        print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo()))
 
+print(len(pop))
 pop.sort(key=lambda x:x.getPontos(), reverse=True)
 
 print("====== Maior pontuacao =======")
