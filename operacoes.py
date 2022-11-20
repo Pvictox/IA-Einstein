@@ -10,25 +10,23 @@ def mutacao(cromossomo):
     num_caracteristica = random.randint(0,4)
     pos_caracteristica = 0
     if (num_caracteristica == 0): #Mudar a nacionalidade
-        print("MUTAR NACIONALIDADE: "+str(cromossomo.getNacionalidade()))
         mutaAlelo(cromossomo.getNacionalidade())
-        print("DEPOIS: "+str(cromossomo.getNacionalidade()))
     elif(num_caracteristica==1):  #Mudar pet
-        print("MUTAR PET: "+str(cromossomo.getPet()))
+        
         mutaAlelo(cromossomo.getPet())
-        print("DEPOIS: "+str(cromossomo.getPet()))
+       
     elif(num_caracteristica==2): #Mudar cor
-        print("MUTAR Cor: "+str(cromossomo.getCor()))
+       
         mutaAlelo(cromossomo.getCor())
-        print("DEPOIS: "+str(cromossomo.getCor()))
+        
     elif(num_caracteristica ==3): #Mudar bebida
-        print("MUTAR BEBIDA: "+str(cromossomo.getBebida()))
+       
         mutaAlelo(cromossomo.getBebida())
-        print("DEPOIS: "+str(cromossomo.getBebida()))
+        
     elif(num_caracteristica==4): #Mudar cigarro
-        print("MUTAR CIGARRO: "+str(cromossomo.getCigarro()))
+       
         mutaAlelo(cromossomo.getCigarro())
-        print("DEPOIS: "+str(cromossomo.getCigarro()))
+       
 
 
 def mutaAlelo(lista):
@@ -121,17 +119,9 @@ def crossover(cromossomoPai, cromossomoMae):
     aleloFilhoPet = cromossomoPai.getPet()
     segundoFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
 
-    print("MAE: "+cromossomoMae.getGenotipo())
-    print("PAI: "+cromossomoPai.getGenotipo())
-    # print("FITNESS PAI: ", cromossomoPai.getPontos())
-    # print("FITNESS MAE: ", cromossomoMae.getPontos())
+   
+    return primeiroFilho, segundoFilho
     
-    print("FILHO QUE FOI GERADO: "+primeiroFilho.getGenotipo())
-    fitness.calcularFitness(primeiroFilho)
-    print("FITNESS primeiro Filho: ", primeiroFilho.getPontos())
 
-    print("FILHO QUE FOI  segundo GERADO: "+segundoFilho.getGenotipo())
-    fitness.calcularFitness(segundoFilho)
-    print("FITNESS segund Filho: ", segundoFilho.getPontos())
 
 
