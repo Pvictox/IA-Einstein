@@ -18,6 +18,9 @@ class Cromossomo:
         self.cigarro = cigarro
         self.pontos = 0
         
+        
+    
+    
       
     
 
@@ -28,12 +31,15 @@ class Cromossomo:
 
     def removeConsolacao(self, valor):
         self.pontos = valor
+      
 
     def addConsolacao(self):
         self.pontos +=0.5
+      
 
     def addPonto(self):
         self.pontos+=1
+       
     
     def getPontos(self):
         return self.pontos

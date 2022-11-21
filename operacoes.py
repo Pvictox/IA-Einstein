@@ -125,22 +125,50 @@ def crossover(cromossomoPai, cromossomoMae):
 
    
     return primeiroFilho, segundoFilho
+
+
+
+def imigracao(pop, quantDeImigrantes, tamanho):
+    pop.sort(key=lambda x:x.getPontos())
+    excluidos = pop[:quantDeImigrantes]
+    fitnessImigrante = 0
     
-def imigracao(population,taxaImagracao):
-    sorted(population, key=lambda elm: elm.getPontos())
-    qtd_imigricao=int((len(population)*taxaImagracao)/100)
-    population=population[qtd_imigricao:]
-    pop =populacao.criarPopulacao(qtd_imigricao)
-    population+=pop
-    return population
+    for c in excluidos:
+        while( fitnessImigrante <= c.getPontos()):
+            
+            imigrante = populacao.criarPopulacao(1)
+            cromo = fitness.calcularFitness(imigrante[0])
+            if (imigrante[0].getPontos() > c.getPontos()):
+                #pop.remove(c)
+                if (len(pop) < tamanho):
+                    pop.append(imigrante[0])
+                else:
+                    break
+            fitnessImigrante = imigrante[0].getPontos()
+            imigrante = []
+
+# def imigracao(population,taxaImagracao):
+#     sorted(population, key=lambda elm: elm.getPontos())
+#     qtd_imigricao=int((len(population)*taxaImagracao)/100)
+#     population=population[qtd_imigricao:]
+#     pop =populacao.criarPopulacao(qtd_imigricao)
+#     population+=pop
+#     return population
 
 
-def sobrevivencia(population,taxaSob):
-    sorted(population, key=lambda elm: elm.getPontos())
-    qtd_sobrivencia=int((len(population)*taxaSob)/100)
-    sobrivivente=population[-qtd_sobrivencia:]
-    population+=sobrivivente
-    return population
+
+def sobrevivencia(populacao, quantDeSobreviventes):
+    populacao.sort(key=lambda x:x.getPontos(), reverse=True)
+    sobreviventes = populacao[:quantDeSobreviventes]
+    return sobreviventes
+
+# def sobrevivencia(population,taxaSob):
+#     sorted(population, key=lambda elm: elm.getPontos())
+#     qtd_sobrivencia=int((len(population)*taxaSob)/100)
+#     print("Qaunt sobrevivencia: ", qtd_sobrivencia)
+#     sobrivivente=population[-qtd_sobrivencia:]
+#     #population+=sobrivivente
+#     return sobrivivente
 
 def criarPop(pop,tamPop):
     pop = populacao.criarPopulacao(tamPop)
