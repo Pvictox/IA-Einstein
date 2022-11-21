@@ -5,12 +5,12 @@ import fitness
 import operacoes
 import random
 
-TAXA_CROSSOVER = 90
+TAXA_CROSSOVER = 80
 TAXA_MUTACAO = 1
-TAXA_IMIGRACAO = 6
-TAXA_SOBREVIVENCIA = 10
-TAM_POP = 200
-NUM_GEN = 200
+TAXA_IMIGRACAO = 10
+TAXA_SOBREVIVENCIA = 20
+TAM_POP = 4000
+NUM_GEN = 2000
 
 prox_pop = []
 
@@ -18,6 +18,8 @@ geracao = 0
 pop = populacao.criarPopulacao(TAM_POP)
 for cromossomo in pop:
      cromossomo = fitness.calcularFitness(cromossomo= cromossomo)
+
+
 
 
 while (geracao < NUM_GEN):
