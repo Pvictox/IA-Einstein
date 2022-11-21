@@ -2,6 +2,7 @@ from cromossomo import Cromossomo
 import random
 import numpy.random as npr
 import fitness
+import populacao
 import numpy as np
 def mutacao(cromossomo):
     #Pegar primeiro uma casa aleatória
@@ -125,6 +126,28 @@ def crossover(cromossomoPai, cromossomoMae):
    
     return primeiroFilho, segundoFilho
     
+def imigracao(population,taxaImagracao):
+    sorted(population, key=lambda elm: elm.getPontos())
+    qtd_imigricao=int((len(population)*taxaImagracao)/100)
+    population=population[qtd_imigricao:]
+    pop =populacao.criarPopulacao(qtd_imigricao)
+    population+=pop
+    return population
+
+
+def sobrevivencia(population,taxaSob):
+    sorted(population, key=lambda elm: elm.getPontos())
+    qtd_sobrivencia=int((len(population)*taxaSob)/100)
+    sobrivivente=population[-qtd_sobrivencia:]
+    population+=sobrivivente
+    return population
+
+def criarPop(pop,tamPop):
+    pop = populacao.criarPopulacao(tamPop)
+    for cromossomo in pop:
+        cromossomo = fitness.calcularFitness(cromossomo= cromossomo)
+    return pop
+
 
 
 
