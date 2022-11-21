@@ -125,6 +125,24 @@ def crossover(cromossomoPai, cromossomoMae):
    
     return primeiroFilho, segundoFilho
     
+def imigracao(populacao,taxaImagracao):
+    sorted(populacao, key=lambda elm: elm.getPontos())
+    qtd_imigricao=int(len(populacao)*taxaImagracao)
+    populacao=populacao[qtd_imigricao:]
+    pop = populacao.criarPopulacao(qtd_imigricao)
+    populacao+=pop
+    return populacao
+
+
+def sobrevivencia(populacao,taxaSob,novaGeracao):
+    sorted(populacao, key=lambda elm: elm.getPontos())
+    qtd_sobrivencia=int(len(populacao)*taxaSob)
+    sobrivivente=populacao[-qtd_sobrivencia:]
+    novaGeracao+=sobrivivente
+    return novaGeracao
+
+
+
 
 
 
