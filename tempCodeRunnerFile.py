@@ -1,2 +1,3 @@
-if (geracao == NUM_GEN):
-     #      print(prox_pop[0].getFenotipo())
+for c in pop:
+     #     print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo())) 
+     # print("============================"

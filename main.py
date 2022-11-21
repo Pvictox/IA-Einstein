@@ -5,12 +5,12 @@ import fitness
 import operacoes
 import random
 
-TAXA_CROSSOVER = 80
+TAXA_CROSSOVER = 90
 TAXA_MUTACAO = 1
-TAXA_IMIGRACAO = 10
-TAXA_SOBREVIVENCIA = 20
-TAM_POP = 4000
-NUM_GEN = 2000
+TAXA_IMIGRACAO = 15
+TAXA_SOBREVIVENCIA = 10
+TAM_POP = 1000
+NUM_GEN = 5000
 
 prox_pop = []
 
@@ -18,8 +18,6 @@ geracao = 0
 pop = populacao.criarPopulacao(TAM_POP)
 for cromossomo in pop:
      cromossomo = fitness.calcularFitness(cromossomo= cromossomo)
-
-
 
 
 while (geracao < NUM_GEN):
@@ -35,7 +33,9 @@ while (geracao < NUM_GEN):
      # for c in sobreviventes:
      #     print("Pontos: "+str(c.getPontos())+" | Genotipo"+ str(c.getGenotipo())) 
      # print("============================")
-
+     # for c in pop:
+     #     print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo())) 
+     # print("============================")
      prox_pop = []
      
      pais = operacoes.select_parents(population=pop)
@@ -44,20 +44,7 @@ while (geracao < NUM_GEN):
      prox_pop = popCrossover[:numFilhos]
      popCrossover = []
      
-     # while(i < numFilhos//2):
-     #      pai, probs = operacoes.roletaCromossomo(population=pop)
-     #      #pai = operacoes.selectOne(population=pop)
-     #      pop.remove(pai)
-     #      operacoes.select_parents(population=pop)
-     #      mae, probs = operacoes.roletaCromossomo(population=pop)
-     #      #mae = operacoes.selectOne(population=pop)
-     #      pop.append(pai)
-     #      #pop.remove(mae)
-          
-     #      filho1, filho2 = operacoes.crossover(cromossomoPai=pai, cromossomoMae=mae)
-     #      prox_pop.append(filho1)
-     #      prox_pop.append(filho2)
-     #      i+=1
+     
      
     
      
@@ -83,35 +70,29 @@ while (geracao < NUM_GEN):
      print("GERAÇÃO: "+str(geracao)+" | Melhor fitness: "+str(prox_pop[0].getPontos()))
      # # if (geracao == NUM_GEN):
      # #      print(prox_pop[0].getFenotipo())
+    
      # #Sobrevivência
      # #....
      for c in sobreviventes:
-          prox_pop.append(c)
+          if (prox_pop.count(c) == 0):
+               prox_pop.append(c)
      
      sobreviventes = []
 
      # #Imigração
      # #...
-     operacoes.imigracao(pop=prox_pop, quantDeImigrantes=(TAXA_IMIGRACAO*TAM_POP)//100, tamanho=TAM_POP ) 
+     imig = (TAXA_IMIGRACAO*TAM_POP)//100
+     
+     imigrantes = operacoes.imigracao(pop=prox_pop, quantDeImigrantes=imig, tamanho=TAM_POP ) 
      pop = []
      pop = prox_pop
+     pop.sort(key=lambda x:x.getPontos())
+     for i in range(len(imigrantes)):
+          pop[i] = imigrantes[i]
 
-     # for c in pop:
-     #     print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo())) 
-     # print("============================")
+     # if (geracao == 50):
+     #      for c in pop:
+     #           print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo())) 
+     #      print("============================")
+     #      geracao = NUM_GEN
 
-# print(" ============= SAIU DAS OPERAÇOS ============= ")
-# for c in pop:
-#        #print("Index: "+str(pop.index(c))+" | Pontos: "+ str(c.getPontos()))
-#        print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo()))
-
-# print(len(pop))
-# pop.sort(key=lambda x:x.getPontos(), reverse=True)
-
-# print("====== Maior pontuacao =======")
-# print(pop[0].getPontos())
-# print("============ Ordenou ============== ")
-# for c in pop:
-#        print("Index: "+str(pop.index(c))+" | Pontos: "+ str(c.getPontos()))
-
-#print(len(prox_pop))

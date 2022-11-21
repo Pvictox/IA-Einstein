@@ -17,9 +17,13 @@ class Cromossomo:
         self.bebida = bebida
         self.cigarro = cigarro
         self.pontos = 0
+        self.sobrevivente = False
     
+    def setSobrevivente(self,valor):
+        self.sobrevivente = valor
 
-
+    def getSobrevivente(self):
+        return self.sobrevivente
     
 
     def getGenotipo(self):
