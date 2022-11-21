@@ -31,17 +31,17 @@ def mutacao(cromossomo):
 
 
 def mutaAlelo(lista):
-    pos_caracteristica = random.randint(0,4)
-    chance = random.randint(0,100)
-    if(pos_caracteristica == 0):
-        swapSucessor(lista=lista, posicao=pos_caracteristica)
-    elif(pos_caracteristica == 4):
-        swapAntecessor(lista=lista, posicao=pos_caracteristica)
-    else:
-        if (chance <=50):
-            swapAntecessor(lista=lista, posicao=pos_caracteristica)
-        else:
-            swapSucessor(lista=lista, posicao=pos_caracteristica)
+    pos_caracteristica_1 = random.randint(0,4) #0
+    pos_caracteristica_2 = random.randint(0,4) # 3
+    while (pos_caracteristica_2 == pos_caracteristica_1):
+        pos_caracteristica_2 = random.randint(0,4)
+    
+    carac1 = lista[pos_caracteristica_1]
+    carac2 = lista[pos_caracteristica_2]
+
+    lista[pos_caracteristica_1] = carac2
+    lista[pos_caracteristica_2] = carac1
+
         
 
 
@@ -54,6 +54,34 @@ def swapSucessor(lista, posicao):
     aux = lista[posicao+1] 
     lista[posicao+1] = lista[posicao]
     lista[posicao] = aux 
+
+
+
+def select_parents(population):
+    fitness_values = []
+    for c in population:
+        fitness_values.append(c.getPontos())
+    parents = []
+    total = sum(fitness_values)
+    norm_fitness_values = [x/total for x in fitness_values]
+
+    #find cumulative fitness values for roulette wheel selection
+    cumulative_fitness = []
+    start = 0
+    for norm_value in norm_fitness_values:
+        start+=norm_value
+        cumulative_fitness.append(start)
+
+    population_size = len(population)
+    for count in range(population_size+1):
+        random_number = random.uniform(0, 1)
+        individual_number = 0
+        for score in cumulative_fitness:
+            if(random_number<=score):
+                parents.append(population[individual_number])
+                break
+            individual_number+=1
+    return parents
 
 
 
@@ -92,41 +120,92 @@ def retornaPrimeirosAlelos(aleloFilho, listaMae):
 # Nacionalidade, pet, cor da mãe
 
 # depois para ou outro filho fazer o inverso
-def crossover(cromossomoPai, cromossomoMae):
-    aleloFilhoCigarro = []
-    aleloFilhoBebida = []
-    aleloFilhoCor = []
-    aleloFilhoPet = []
-    aleloFilhoNacionalidade= []
+# def crossover(cromossomoPai, cromossomoMae):
+#     aleloFilhoCigarro = []
+#     aleloFilhoBebida = []
+#     aleloFilhoCor = []
+#     aleloFilhoPet = []
+#     aleloFilhoNacionalidade= []
     
 
 
-    aleloFilhoBebida = cromossomoPai.getBebida()
-    aleloFilhoCigarro = cromossomoPai.getCigarro()
-    aleloFilhoCor = cromossomoMae.getCor()
-    aleloFilhoNacionalidade = cromossomoMae.getNacionalidade()
-    aleloFilhoPet = cromossomoMae.getPet()
+#     aleloFilhoBebida = cromossomoPai.getBebida()
+#     aleloFilhoCigarro = cromossomoPai.getCigarro()
+#     aleloFilhoCor = cromossomoMae.getCor()
+#     aleloFilhoNacionalidade = cromossomoMae.getNacionalidade()
+#     aleloFilhoPet = cromossomoMae.getPet()
     
 
-    primeiroFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
+#     primeiroFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
 
-    aleloFilhoCigarro = []
-    aleloFilhoBebida = []
-    aleloFilhoCor = []
-    aleloFilhoPet = []
-    aleloFilhoNacionalidade= []
+#     aleloFilhoCigarro = []
+#     aleloFilhoBebida = []
+#     aleloFilhoCor = []
+#     aleloFilhoPet = []
+#     aleloFilhoNacionalidade= []
 
-    aleloFilhoBebida = cromossomoMae.getBebida()
-    aleloFilhoCigarro = cromossomoMae.getCigarro()
-    aleloFilhoCor = cromossomoPai.getCor()
-    aleloFilhoNacionalidade = cromossomoPai.getNacionalidade()
-    aleloFilhoPet = cromossomoPai.getPet()
-    segundoFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
+#     aleloFilhoBebida = cromossomoMae.getBebida()
+#     aleloFilhoCigarro = cromossomoMae.getCigarro()
+#     aleloFilhoCor = cromossomoPai.getCor()
+#     aleloFilhoNacionalidade = cromossomoPai.getNacionalidade()
+#     aleloFilhoPet = cromossomoPai.getPet()
+#     segundoFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
 
    
-    return primeiroFilho, segundoFilho
+#     return primeiroFilho, segundoFilho
+
+def crossover(pais, taxa, tamanho):
+    random.shuffle(pais)
+    numeros_pares = round(taxa/2)
+    populacao_crossover = []
+    for par in range(numeros_pares):
+        tamanho = len(pais)
+        indice_pai = random.randrange(tamanho)
+        indice_mae = random.randrange(tamanho)
+        while (indice_mae == indice_pai):
+            indice_mae = random.randrange(tamanho)
+        
+        pai = pais[indice_pai]
+        mae = pais[indice_mae]
+
+        aleloFilhoCigarro = []
+        aleloFilhoBebida = []
+        aleloFilhoCor = []
+        aleloFilhoPet = []
+        aleloFilhoNacionalidade= []
+        
 
 
+        aleloFilhoBebida = pai.getBebida()
+        aleloFilhoCigarro = pai.getCigarro()
+        aleloFilhoCor = mae.getCor()
+        aleloFilhoNacionalidade = mae.getNacionalidade()
+        aleloFilhoPet = mae.getPet()
+        
+
+        primeiroFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
+
+        aleloFilhoCigarro = []
+        aleloFilhoBebida = []
+        aleloFilhoCor = []
+        aleloFilhoPet = []
+        aleloFilhoNacionalidade= []
+
+        aleloFilhoBebida = mae.getBebida()
+        aleloFilhoCigarro = mae.getCigarro()
+        aleloFilhoCor = pai.getCor()
+        aleloFilhoNacionalidade = pai.getNacionalidade()
+        aleloFilhoPet = pai.getPet()
+        segundoFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
+        pais.remove(pai)
+        pais.remove(mae)
+        populacao_crossover.append(primeiroFilho)
+        populacao_crossover.append(segundoFilho)
+    if (len(pais) > 0):
+        for pai in pais:
+            populacao_crossover.append(pai)
+    
+    return populacao_crossover
 
 def imigracao(pop, quantDeImigrantes, tamanho):
     pop.sort(key=lambda x:x.getPontos())

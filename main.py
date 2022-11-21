@@ -5,11 +5,11 @@ import fitness
 import operacoes
 import random
 
-TAXA_CROSSOVER = 94
+TAXA_CROSSOVER = 95
 TAXA_MUTACAO = 1
 TAXA_IMIGRACAO = 5
-TAXA_SOBREVIVENCIA = 6
-TAM_POP = 2500
+TAXA_SOBREVIVENCIA = 5
+TAM_POP = 1000
 NUM_GEN = 100
 
 prox_pop = []
@@ -30,17 +30,27 @@ while (geracao < NUM_GEN):
      quantSobreviventes = (TAM_POP*TAXA_SOBREVIVENCIA)//100
      sobreviventes = operacoes.sobrevivencia(populacao=pop, quantDeSobreviventes=quantSobreviventes)
      prox_pop = []
+     
+     pais = operacoes.select_parents(population=pop)
+     popCrossover = operacoes.crossover(pais=pais, taxa=numFilhos, tamanho=TAM_POP)
+     
+     prox_pop = popCrossover[:numFilhos]
 
-     while(i < numFilhos//2):
-          pai, probs = operacoes.roletaCromossomo(population=pop)
-          pop.remove(pai)
-          mae, probs = operacoes.roletaCromossomo(population=pop)
-          pop.remove(mae)
+     
+     # while(i < numFilhos//2):
+     #      pai, probs = operacoes.roletaCromossomo(population=pop)
+     #      #pai = operacoes.selectOne(population=pop)
+     #      pop.remove(pai)
+     #      operacoes.select_parents(population=pop)
+     #      mae, probs = operacoes.roletaCromossomo(population=pop)
+     #      #mae = operacoes.selectOne(population=pop)
+     #      pop.append(pai)
+     #      #pop.remove(mae)
           
-          filho1, filho2 = operacoes.crossover(cromossomoPai=pai, cromossomoMae=mae)
-          prox_pop.append(filho1)
-          prox_pop.append(filho2)
-          i+=1
+     #      filho1, filho2 = operacoes.crossover(cromossomoPai=pai, cromossomoMae=mae)
+     #      prox_pop.append(filho1)
+     #      prox_pop.append(filho2)
+     #      i+=1
      
     
      
@@ -64,23 +74,24 @@ while (geracao < NUM_GEN):
      prox_pop.sort(key=lambda x:x.getPontos(), reverse=True)
 
      print("GERAÇÃO: "+str(geracao)+" | Melhor fitness: "+str(prox_pop[0].getPontos()))
-
-     #Sobrevivência
-     #....
+     # # if (geracao == NUM_GEN):
+     # #      print(prox_pop[0].getFenotipo())
+     # #Sobrevivência
+     # #....
      for c in sobreviventes:
           prox_pop.append(c)
      
      
 
-     #Imigração
-     #...
+     # #Imigração
+     # #...
      operacoes.imigracao(pop=prox_pop, quantDeImigrantes=(TAXA_IMIGRACAO*TAM_POP)//100, tamanho=TAM_POP ) 
-
+     pop = []
      pop = prox_pop
 
      # for c in pop:
      #     print("Index: "+str(pop.index(c))+" | Genotipo"+ str(c.getGenotipo())) 
-     
+     # print("============================")
 
 # print(" ============= SAIU DAS OPERAÇOS ============= ")
 # for c in pop:
