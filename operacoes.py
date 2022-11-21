@@ -218,8 +218,9 @@ def imigracao(pop, quantDeImigrantes, tamanho):
             imigrante = populacao.criarPopulacao(1)
             cromo = fitness.calcularFitness(imigrante[0])
             if (imigrante[0].getPontos() > c.getPontos()):
-                #pop.remove(c)
+                
                 if (len(pop) < tamanho):
+                    pop.remove(c)
                     pop.append(imigrante[0])
                 else:
                     break
