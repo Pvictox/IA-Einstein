@@ -201,9 +201,9 @@ def crossover(pais, taxa, tamanho):
         pais.remove(mae)
         populacao_crossover.append(primeiroFilho)
         populacao_crossover.append(segundoFilho)
-    if (len(pais) > 0):
-        for pai in pais:
-            populacao_crossover.append(pai)
+    # if (len(pais) > 0):
+    #     for pai in pais:
+    #         populacao_crossover.append(pai)
     
     return populacao_crossover
 
@@ -239,7 +239,11 @@ def imigracao(pop, quantDeImigrantes, tamanho):
 
 def sobrevivencia(populacao, quantDeSobreviventes):
     populacao.sort(key=lambda x:x.getPontos(), reverse=True)
-    sobreviventes = populacao[:quantDeSobreviventes]
+    sobreviventes = []
+    for i in range(quantDeSobreviventes):
+        if (sobreviventes.count(populacao[i]) == 0):
+            sobreviventes.append(populacao[i])
+    #sobreviventes = populacao[:quantDeSobreviventes]
     return sobreviventes
 
 # def sobrevivencia(population,taxaSob):

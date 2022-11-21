@@ -5,12 +5,12 @@ import fitness
 import operacoes
 import random
 
-TAXA_CROSSOVER = 95
+TAXA_CROSSOVER = 90
 TAXA_MUTACAO = 1
-TAXA_IMIGRACAO = 5
-TAXA_SOBREVIVENCIA = 5
-TAM_POP = 1000
-NUM_GEN = 100
+TAXA_IMIGRACAO = 6
+TAXA_SOBREVIVENCIA = 10
+TAM_POP = 200
+NUM_GEN = 200
 
 prox_pop = []
 
@@ -29,13 +29,18 @@ while (geracao < NUM_GEN):
      
      quantSobreviventes = (TAM_POP*TAXA_SOBREVIVENCIA)//100
      sobreviventes = operacoes.sobrevivencia(populacao=pop, quantDeSobreviventes=quantSobreviventes)
+
+     # for c in sobreviventes:
+     #     print("Pontos: "+str(c.getPontos())+" | Genotipo"+ str(c.getGenotipo())) 
+     # print("============================")
+
      prox_pop = []
      
      pais = operacoes.select_parents(population=pop)
      popCrossover = operacoes.crossover(pais=pais, taxa=numFilhos, tamanho=TAM_POP)
      
      prox_pop = popCrossover[:numFilhos]
-
+     popCrossover = []
      
      # while(i < numFilhos//2):
      #      pai, probs = operacoes.roletaCromossomo(population=pop)
@@ -81,7 +86,7 @@ while (geracao < NUM_GEN):
      for c in sobreviventes:
           prox_pop.append(c)
      
-     
+     sobreviventes = []
 
      # #Imigração
      # #...
