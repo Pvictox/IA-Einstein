@@ -74,7 +74,7 @@ def select_parents(population):
 
     population_size = len(population)
     for count in range(population_size+1):
-        random.seed(10)
+        
         random_number = random.uniform(0, 1)
         individual_number = 0
         for score in cumulative_fitness:
@@ -127,7 +127,7 @@ def aplicaCaracteristicas(filho, pai, mae, quantPai, quantMae):
     aleloCor = []
     aleloBebida = []
     aleloCigarro = []
-    random.seed(10)
+   
     while (quantPai != 0):
         chance = random.randint(0,100)
         if (chance <=20 and len(aleloNacionalidade) == 0):
@@ -170,13 +170,13 @@ def aplicaCaracteristicas(filho, pai, mae, quantPai, quantMae):
 
 
 def crossover(pais, taxa, tamanho):
-    random.seed(10)
+    
     random.shuffle(pais)
     numeros_pares = round(taxa/2)
     populacao_crossover = []
     flag = False
     for par in range(numeros_pares):
-            random.seed(10)
+            
             tamanho = len(pais)
             indice_pai = random.randrange(tamanho)
             indice_mae = random.randrange(tamanho)
