@@ -74,6 +74,7 @@ def select_parents(population):
 
     population_size = len(population)
     for count in range(population_size+1):
+        random.seed(10)
         random_number = random.uniform(0, 1)
         individual_number = 0
         for score in cumulative_fitness:
@@ -85,6 +86,7 @@ def select_parents(population):
 
 
 
+    return np.random.choice(population, p=chromosome_probabilities)
 
 def roletaCromossomo(population):
     for c in population:
@@ -116,43 +118,7 @@ def retornaPrimeirosAlelos(aleloFilho, listaMae):
     return aleloFilho
 
 
-#Pegar bebida e Cigarro do pai 
-# Nacionalidade, pet, cor da mãe
 
-# depois para ou outro filho fazer o inverso
-# def crossover(cromossomoPai, cromossomoMae):
-#     aleloFilhoCigarro = []
-#     aleloFilhoBebida = []
-#     aleloFilhoCor = []
-#     aleloFilhoPet = []
-#     aleloFilhoNacionalidade= []
-    
-
-
-#     aleloFilhoBebida = cromossomoPai.getBebida()
-#     aleloFilhoCigarro = cromossomoPai.getCigarro()
-#     aleloFilhoCor = cromossomoMae.getCor()
-#     aleloFilhoNacionalidade = cromossomoMae.getNacionalidade()
-#     aleloFilhoPet = cromossomoMae.getPet()
-    
-
-#     primeiroFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
-
-#     aleloFilhoCigarro = []
-#     aleloFilhoBebida = []
-#     aleloFilhoCor = []
-#     aleloFilhoPet = []
-#     aleloFilhoNacionalidade= []
-
-#     aleloFilhoBebida = cromossomoMae.getBebida()
-#     aleloFilhoCigarro = cromossomoMae.getCigarro()
-#     aleloFilhoCor = cromossomoPai.getCor()
-#     aleloFilhoNacionalidade = cromossomoPai.getNacionalidade()
-#     aleloFilhoPet = cromossomoPai.getPet()
-#     segundoFilho = Cromossomo(aleloFilhoNacionalidade, aleloFilhoPet, aleloFilhoCor, aleloFilhoBebida, aleloFilhoCigarro)
-
-   
-#     return primeiroFilho, segundoFilho
 
 
 def aplicaCaracteristicas(filho, pai, mae, quantPai, quantMae):
@@ -161,6 +127,7 @@ def aplicaCaracteristicas(filho, pai, mae, quantPai, quantMae):
     aleloCor = []
     aleloBebida = []
     aleloCigarro = []
+    random.seed(10)
     while (quantPai != 0):
         chance = random.randint(0,100)
         if (chance <=20 and len(aleloNacionalidade) == 0):
@@ -203,12 +170,13 @@ def aplicaCaracteristicas(filho, pai, mae, quantPai, quantMae):
 
 
 def crossover(pais, taxa, tamanho):
+    random.seed(10)
     random.shuffle(pais)
     numeros_pares = round(taxa/2)
     populacao_crossover = []
     flag = False
     for par in range(numeros_pares):
-       
+            random.seed(10)
             tamanho = len(pais)
             indice_pai = random.randrange(tamanho)
             indice_mae = random.randrange(tamanho)
@@ -217,6 +185,8 @@ def crossover(pais, taxa, tamanho):
             
             pai = pais[indice_pai]
             mae = pais[indice_mae]
+           
+  
             primeiroFilho = None
             segundoFilho = None
             if (pai.getSobrevivente != True and mae.getSobrevivente != True):
@@ -226,14 +196,15 @@ def crossover(pais, taxa, tamanho):
                 populacao_crossover.append(primeiroFilho)
                 
                 populacao_crossover.append(segundoFilho)
-                
+               
                 pais.remove(pai)
                 pais.remove(mae)
              
         
     if (len(pais) > 0):
         for pai in pais:
-            populacao_crossover.append(pai)
+            if (pai.getSobrevivente == False):
+                populacao_crossover.append(pai)
     
     return populacao_crossover
 
@@ -276,11 +247,7 @@ def sobrevivencia(populacao, quantDeSobreviventes):
 #     #population+=sobrivivente
 #     return sobrivivente
 
-def criarPop(pop,tamPop):
-    pop = populacao.criarPopulacao(tamPop)
-    for cromossomo in pop:
-        cromossomo = fitness.calcularFitness(cromossomo= cromossomo)
-    return pop
+
 
 
 
